@@ -29,7 +29,8 @@ function generateFlashcards() {
 	}
 	//let test = {"test": "test"};
 
-	xhttp.open("POST", '/');
+	//TODO: add user data 
+	xhttp.open("POST", '/upload');
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.send(JSON.stringify(parsedFile));
 }
@@ -41,12 +42,16 @@ function parseDefinitionToArray(str) {
     let jsonArray = [];
     while ((array1 = regex1.exec(str)) !== null) {
         let array2;
+        let frontside = array1[1];
         let backside = array1[2];
+        while ((array2 = regex2.exec(frontside)) !== null) {
+            frontside = frontside.replace(array2[0], 'textcolor{Thistle}{\\texttt{' + array2[1] + '}}')
+        }
         while ((array2 = regex2.exec(backside)) !== null) {
             backside = backside.replace(array2[0], 'textcolor{Thistle}{\\texttt{' + array2[1] + '}}')
         }
         const jsonObject = {
-            "front side" : array1[1],
+            "front side" : frontside,
             "back side" : backside
         };
         jsonArray.push(jsonObject);
@@ -62,11 +67,15 @@ function parseDefinitionToObject(str) {
     let jsonObject = {null : null};
     while ((array1 = regex1.exec(str)) !== null) {
         let array2;
+        let frontside = array1[1];
         let backside = array1[2];
+        while ((array2 = regex2.exec(frontside)) !== null) {
+            frontside = frontside.replace(array2[0], 'textcolor{Thistle}{\\texttt{' + array2[1] + '}}')
+        }
         while ((array2 = regex2.exec(backside)) !== null) {
             backside = backside.replace(array2[0], 'textcolor{Thistle}{\\texttt{' + array2[1] + '}}')
         }
-        jsonObject[array1[1]] = backside;
+        jsonObject[frontside] = backside;
     }
 
     delete jsonObject[null];

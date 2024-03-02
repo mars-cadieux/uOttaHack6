@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+//TODO: flashcards should be part of a collection
+
 let flashcardSchema = Schema({
     // front side of the flashcard
     // String of at least one character, trim trailing whitespace
