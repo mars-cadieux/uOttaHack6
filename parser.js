@@ -7,7 +7,7 @@ function parseDefinitionToArray(str) {
         let array2;
         let frontside = array1[1];
         let backside = array1[2];
-        while ((array2 = regex2.exec(backside)) !== null) {
+        while ((array2 = regex2.exec(frontside)) !== null) {
             frontside = frontside.replace(array2[0], 'textcolor{Thistle}{\\texttt{' + array2[1] + '}}')
         }
         while ((array2 = regex2.exec(backside)) !== null) {
@@ -32,7 +32,7 @@ function parseDefinitionToObject(str) {
         let array2;
         let frontside = array1[1];
         let backside = array1[2];
-        while ((array2 = regex2.exec(backside)) !== null) {
+        while ((array2 = regex2.exec(frontside)) !== null) {
             frontside = frontside.replace(array2[0], 'textcolor{Thistle}{\\texttt{' + array2[1] + '}}')
         }
         while ((array2 = regex2.exec(backside)) !== null) {
