@@ -11,26 +11,29 @@ let app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+//set view engine to pug so server knows how to render templates
+app.set("views", "views/pages");
+app.set("view engine", "pug");
 
 /**************************************************************
  * Static File Handling 
  **************************************************************/
 
 //specify directories to search in when serving static files
-app.use(express.static("./"));
+app.use(express.static("public"));
 
 
 
 
 app.get('/', (req, res) => {
-	res.sendFile('main.html');
+	res.render('main.pug');
 });
 
-app.post('/', (req, res) => {
-	let file = req.body;
-	console.log(file);
-	//let fileParsed = fs.readFileSync(file, "utf-8")
-});
+// app.post('/', (req, res) => {
+// 	let file = req.body;
+// 	console.log(file);
+// 	//let fileParsed = fs.readFileSync(file, "utf-8")
+// });
 
 
 
