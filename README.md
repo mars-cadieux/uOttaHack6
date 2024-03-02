@@ -1,0 +1,1 @@
+Important Note: in the MathJax node module, you will need to configure tex.js to display inline math using '$' as a delimeter. Replace `inlineMath:[['\\(', '\\)']]` with `inlineMath:[['$', '$'], ['\\(', '\\)']]` in tex.js.
