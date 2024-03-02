@@ -5,7 +5,11 @@ html
 		link(rel='stylesheet' href='styles/login.css')
 
 	body(style="text-align: center;")
-		include ../partials/header
+		header
+			#leftHeader
+				img#logo(src='assets/logo.png')
+				h1 LaTeX Latte
+			#darkModeToggle(href="#") 🌙
 		main 
 			div#loginMain
 				div#loginForm

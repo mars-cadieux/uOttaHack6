@@ -1,4 +1,11 @@
 header
-    img#logo(src='assets/logo.png')
-    h1 LaTeX Latte
-    a#darkModeToggle(href="#") 🌙
+    #leftHeader
+        img#logo(src='assets/logo.png')
+        h1 LaTeX Latte
+    #navbar
+        a.headerLink(href="/upload") Upload
+        | 
+        a.headerLink(href="/flashcards") Flashcards
+        | 
+        a.headerLink(href="/logout") Log Out
+    #darkModeToggle(href="#") 🌙
