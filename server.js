@@ -49,9 +49,8 @@ app.use(session({
 	store: gallery
 }));
 
-//middleware to inlude the login type in all requests, so we don't need to pass it to our templates every time we render
+//middleware to inlude the username in all requests
 app.use((req, res, next) => {
-	res.locals.loginType = req.session.loginType;
 	res.locals.username = req.session.username;
 	next();
 });
@@ -96,6 +95,7 @@ app.get('/upload', (req, res) => {
 
 app.post('/upload', insertFlashCards, sendCards);
 
+app.get('/flashcards', sendCards);
 
 
 
@@ -229,7 +229,7 @@ async function insertFlashCards(req, res, next){
 		let newCard = new Flashcard();
 		newCard.frontSide = key;
 		newCard.backSide = file[key];
-		//TODO: newCard.uploadedBy = req.session.username;
+		newCard.uploadedBy = req.session.username;
 		newCard.date = new Date();
 
 		try{
@@ -242,12 +242,19 @@ async function insertFlashCards(req, res, next){
 		}
 	}
 
-	next();
+	res.status(201).send("Your flashcards were generated successfully!");
 }
 
 async function sendCards(req, res, next){
-	console.log("in sendcards");
-	res.render("flashcards.pug");
+	try{
+		let queriedCards = await Flashcard.find().populate().exec();
+		res.render("flashcards", {cards: queriedCards});
+	}
+	catch(err){
+		console.log(err);
+		res.status(400).send("No cards match those parameters.");
+	}
+	
 };
 
 
