@@ -5,21 +5,19 @@
 }
 
 .coffeeSleeve{
-    justify-content: center;
     margin: auto;
     clip-path: polygon(0 0, 100% 0, 93% 100%, 7% 100%);
     width: 70%;
     height: 100%;
 }
 .fileUploadWrapper{
-    text-align: center;
     background: var(--backgroundtertiary);
-    border: dashed 3px var(--backgroundsecondary);
-    padding: 1em;
+    border-top: dashed 5px var(--accenttertiary);
+    border-bottom: dashed 5px var(--accenttertiary);
     padding-top:50px;
     padding-bottom:50px;
     cursor: pointer;
-    align-items: center;
+
 }
 
 #uploadTex{
@@ -28,22 +26,15 @@
 }
 
 #uploadTex::file-selector-button {
-    margin-left: 10px;
     font-family: var(--primaryfont);
     background-color: var(--backgroundsecondary);
     color: var(--textdarker);
     margin: 0.5em;
     cursor: pointer;
+    border-radius:10px;
+    border: solid 2px var(--textdarker)
 }
 
 #generateButton{
-    font-family: var(--primaryfont);
-    background-color: var(--backgroundsecondary);
-    color: var(--textdarker);
-    padding: 0.5em;
-    padding-left: 2.5em;
-    padding-right: 2.5em;
-    margin: 0.5em;
-    cursor: pointer;
-    
+
 }

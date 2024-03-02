@@ -6,11 +6,15 @@ head
   meta(name='viewport' content='width=device-width, initial-scale=1')
   link(rel='stylesheet' href='styles/main.css')
 body
-  header LaTeX Latte
-  .coffeeSleeveContainer
-    .coffeeSleeve
-      .fileUploadWrapper
-        label(for='uploadTex') Upload your LaTeX file: 
-        input#uploadTex(type='file' accept='.tex')
-    button#generateButton Generate!
+  header
+    img#logo(src='assets/latexlatte.jpg')
+    h1 LaTeX Latte
+    a#darkModeToggle(href="#") 🌙
+  main
+    .coffeeSleeveContainer
+      .coffeeSleeve
+        .fileUploadWrapper
+          label(for='uploadTex') Upload your LaTeX file: 
+          input#uploadTex(type='file' accept='.tex')
+      button#generateButton Generate!
 script(src='../client.js')
