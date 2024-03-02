@@ -246,6 +246,7 @@ async function insertFlashCards(req, res, next){
 }
 
 async function sendCards(req, res, next){
+	console.log("in sendcards");
 	res.render("flashcards.pug");
 };
 

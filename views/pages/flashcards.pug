@@ -7,7 +7,8 @@ head
   link(rel='stylesheet' href='')
 body
   include ../partials/header
-  label(for='uploadTex') Upload your LaTeX file: 
-  input#uploadTex(type='file' accept='.tex')
-  button#generateButton Generate!
+  main
+    div#frontSide 
+    div#backSide
+  
 script(src='../flashcards.js')

@@ -24,7 +24,7 @@ function generateFlashcards() {
 	xhttp.onreadystatechange = function() {
 		if(this.readyState == 4 && this.status == 200){
 			console.log("success!");
-			//window.location.reload();
+			window.location.href = "/flashcards";
 		}
 	}
 	//let test = {"test": "test"};
