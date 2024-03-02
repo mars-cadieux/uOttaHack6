@@ -1,11 +1,21 @@
 function parseDefinitionToArray(str) {
-    let regex = RegExp('definition{(.+)}{(.+)}', 'g');
+    let regex1 = RegExp('definition{(.+)}{(.+)}', 'g');
+    let regex2 = RegExp('code{([^}]+)}', 'g');
     let array1;
     let jsonArray = [];
-    while ((array1 = regex.exec(str)) !== null) {
+    while ((array1 = regex1.exec(str)) !== null) {
+        let array2;
+        let frontside = array1[1];
+        let backside = array1[2];
+        while ((array2 = regex2.exec(frontside)) !== null) {
+            frontside = frontside.replace(array2[0], 'textcolor{Thistle}{\\texttt{' + array2[1] + '}}')
+        }
+        while ((array2 = regex2.exec(backside)) !== null) {
+            backside = backside.replace(array2[0], 'textcolor{Thistle}{\\texttt{' + array2[1] + '}}')
+        }
         const jsonObject = {
-            "title" : array1[1],
-            "definition" : array1[2]
+            "front side" : frontside,
+            "back side" : backside
         };
         jsonArray.push(jsonObject);
     }
@@ -14,11 +24,21 @@ function parseDefinitionToArray(str) {
 }
 
 function parseDefinitionToObject(str) {
-    let regex = RegExp('definition{(.+)}{(.+)}', 'g');
+    let regex1 = RegExp('definition{(.+)}{(.+)}', 'g');
+    let regex2 = RegExp('code{([^}]+)}', 'g');
     let array1;
     let jsonObject = {null : null};
-    while ((array1 = regex.exec(str)) !== null) {
-        jsonObject[array1[1]] = array1[2];
+    while ((array1 = regex1.exec(str)) !== null) {
+        let array2;
+        let frontside = array1[1];
+        let backside = array1[2];
+        while ((array2 = regex2.exec(frontside)) !== null) {
+            frontside = frontside.replace(array2[0], 'textcolor{Thistle}{\\texttt{' + array2[1] + '}}')
+        }
+        while ((array2 = regex2.exec(backside)) !== null) {
+            backside = backside.replace(array2[0], 'textcolor{Thistle}{\\texttt{' + array2[1] + '}}')
+        }
+        jsonObject[frontside] = backside;
     }
 
     delete jsonObject[null];

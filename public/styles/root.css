@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Satisfy&display=swap');
+/* Colour Scheme */
+:root{
+    --backgroundprimary: #ead4b8;
+    --backgroundsecondary: #dbbc93;
+    --backgroundtertiary: #ae875e;
+    --accentprimary: #499c8c;
+    --accentsecondary: #f44336;
+    --accenttertiary: #e1bb88;
+    
+    --textlighter: #7c6f64;
+    --textlight: #665c54;
+    --textdark: #504945;
+    --textdarker: #282828;
+
+    --linkcolour: #378959;
+
+    --primaryfont: "Kalam", serif;
+    --secondaryfont: "Satisfy", sans-serif;
+}
+
+/* Global Styles */
+
+body {
+    background-color: var(--backgroundsecondary);
+    font-family: var(--primaryfont);
+    color: var(--textdarker);
+    font-size: 1em;
+    margin-right:15%;
+    margin-left: 15%;
+
+
+}
+
+header {
+    border-radius: 20px 20px 0 0;
+    padding-left: 5%;
+    padding-right: 5%;
+    display:flex;
+    align-items: center;
+    background-color: var(--accentprimary);
+}
+
+header h1{
+    margin-right: auto;
+    margin-left: 10px;
+}
+
+main{
+    border-radius: 0 0 20px 20px;
+    background-color: var(--backgroundprimary);
+    padding-top:20px;
+    padding-bottom: 20px;
+   
+}
+
+footer {
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    text-align: center;
+}
+
+h1 {
+    font-family: var(--secondaryfont), sans-serif;
+    font-style: italic;
+    color: var(--textdarker);
+    font-size: 2em;
+}
+
+#logo{
+    max-width: 50px;
+}
+
+#darkModeToggle{
+    text-decoration: none;
+    color: transparent;  
+    text-shadow: 0 0 0 var(--backgroundprimary);
+    font-size: large;
+}
+
+button{
+    font-family: var(--primaryfont);
+    background-color: var(--backgroundsecondary);
+    color: var(--textdarker);
+    padding: 0.5em;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+    margin: 0.5em;
+    cursor: pointer;
+    border-radius:10px;
+    border: solid 2px var(--accentprimary)
+}

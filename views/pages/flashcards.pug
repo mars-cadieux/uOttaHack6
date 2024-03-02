@@ -6,7 +6,9 @@ head
   meta(name='viewport' content='width=device-width, initial-scale=1')
   link(rel='stylesheet' href='')
 body
-  label(for='uploadTex') Upload your LaTeX file: 
-  input#uploadTex(type='file' accept='.tex')
-  button#generateButton Generate!
-script(src='../client.js')
+  include ../partials/header
+  main
+    div#frontSide 
+    div#backSide
+  
+script(src='../flashcards.js')
