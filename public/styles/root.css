@@ -63,7 +63,7 @@ footer {
 h1 {
     font-family: var(--secondaryfont), sans-serif;
     font-style: italic;
-    color: var(--textdarker);
+    color: var(--backgroundprimary);
     font-size: 2em;
 }
 
@@ -89,4 +89,8 @@ button{
     cursor: pointer;
     border-radius:10px;
     border: solid 2px var(--accentprimary)
+}
+
+input:focus{
+    outline: var(--accentprimary)
 }

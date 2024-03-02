@@ -1,0 +1,11 @@
+@import url(root.css);
+
+input{
+    font-family: var(--primaryfont);
+    background-color: var(--backgroundsecondary);
+    border-radius: 20px;
+    border: 2px solid var(--accentprimary);
+    padding:10px;
+    
+}
+

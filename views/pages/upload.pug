@@ -7,15 +7,12 @@ head
   link(rel='stylesheet' href='styles/main.css')
 body
   include ../partials/header
-  header
-    img#logo(src='assets/latexlatte.jpg')
-    h1 LaTeX Latte
-    a#darkModeToggle(href="#") 🌙
   main
     .coffeeSleeveContainer
       .coffeeSleeve
         .fileUploadWrapper
           label(for='uploadTex') Upload your LaTeX file: 
           input#uploadTex(type='file' accept='.tex')
+      br
       button#generateButton Generate!
 script(src='../client.js')
