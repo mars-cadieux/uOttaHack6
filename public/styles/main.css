@@ -20,6 +20,11 @@
 
 }
 
+.code{
+    font-family: 'Courier New', Courier, monospace;
+    color: #ff0000;
+}
+
 #uploadTex{
     font-family: var(--primaryfont);
     font-size: 1em;
