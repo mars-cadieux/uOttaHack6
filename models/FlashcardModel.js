@@ -34,6 +34,18 @@ let flashcardSchema = Schema({
 		trim: true 
     },
 
+    category: {
+        type: String,
+        required: true,
+        minLength: 1,
+        maxlength: 1,
+        match: /[dp]/i, // (d)efinitions, (p)ractice questions, add more as needed
+        trim: true
+    },
+
+    // the course the flashcard corresponds to
+    course: {type: Schema.Types.ObjectId, ref: 'Course'},
+
     // Date of when the flashcard was uploaded
     date: Date
 });
