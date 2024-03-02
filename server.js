@@ -3,7 +3,7 @@ const express = require('express');
 const pug = require('pug');
 const fs = require('fs');
 //const mc = require('mongodb').MongoClient;
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
 
 let app = express();
 
@@ -11,6 +11,40 @@ let app = express();
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.post('/', (req, res) => {
-	let 
+
+/**************************************************************
+ * Static File Handling 
+ **************************************************************/
+
+//specify directories to search in when serving static files
+app.use(express.static("./"));
+
+
+
+
+app.get('/', (req, res) => {
+	res.sendFile('main.html');
 });
+
+app.post('/', (req, res) => {
+	let file = req.body;
+	console.log(file);
+	//let fileParsed = fs.readFileSync(file, "utf-8")
+});
+
+
+
+
+
+
+
+/**************************************************************
+ * Start listening
+ **************************************************************/
+
+async function run() {
+	console.log("Server running on Port 3000");
+		app.listen(3000); 
+}
+// Run the function and handle any errors
+run().catch(console.dir);
