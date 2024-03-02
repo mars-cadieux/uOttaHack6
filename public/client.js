@@ -36,10 +36,20 @@ function generateFlashcards() {
 }
 
 function parseDefinitionToArray(str) {
-    let regex1 = RegExp('definition{(.+)}{(.+)}', 'g');
+    let regex1 = RegExp('\\$[^\\$]+\\$', 'gd');
+    let regex2 = RegExp('definition{(.+)}{(.+)}', 'gs');
     let array1;
-    let jsonArray = [];
+
     while ((array1 = regex1.exec(str)) !== null) {
+        let index1 = array1.indices[0][0];
+        let index2 = array1.indices[0][1];
+        if (str[index1 - 1] !== "$" && str[index2] !== "$$") {
+            str = str.substring(0, index1) + "\\(" + str.substring(index1 + 1, index2 - 1) + "\\)" + str.substring(index2, str.length);
+        }
+    }
+
+    let jsonArray = [];
+    while ((array1 = regex2.exec(str)) !== null) {
         const jsonObject = {
             "front side" : array1[1],
             "back side" : array1[2]
@@ -51,10 +61,19 @@ function parseDefinitionToArray(str) {
 }
 
 function parseDefinitionToObject(str) {
-    let regex1 = RegExp('definition{(.+)}{(.+)}', 'g');
+    let regex1 = RegExp('\\$[^\\$]+\\$', 'gd');
+    let regex2 = RegExp('definition{(.+)}{(.+)}', 'gs');
     let array1;
-    let jsonObject = {null : null};
+
     while ((array1 = regex1.exec(str)) !== null) {
+        let index1 = array1.indices[0][0];
+        let index2 = array1.indices[0][1];
+        if (str[index1 - 1] !== "$" && str[index2] !== "$$") {
+            str = str.substring(0, index1) + "\\(" + str.substring(index1 + 1, index2 - 1) + "\\)" + str.substring(index2, str.length);
+        }
+    }
+    let jsonObject = {null : null};
+    while ((array1 = regex2.exec(str)) !== null) {
         jsonObject[array1[1]] = array1[2];
     }
 
