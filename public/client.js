@@ -5,7 +5,7 @@ let currentFileContent = null;
 uploadInput.addEventListener('change', function(event){
 	const reader = new FileReader();
   	reader.onload = handleFileLoad;
-  	reader.readAsText(event.target.files[0])
+  	reader.readAsText(event.target.files[0]);
 });
 
 function handleFileLoad(event) {

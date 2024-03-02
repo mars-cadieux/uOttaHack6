@@ -282,12 +282,23 @@ async function sendCards(req, res, next){
 	let amount = req.query.limit;
 
 	try{
-		let queriedCards = await Flashcard.find()
+		let queriedCard = await Flashcard.find()
 											.limit(amount)
 											.skip(startIndex)
 											.populate()
 											.exec();
-		res.render("flashcards", {cards: queriedCards, qstring: req.qstring, current: req.query.page, nextButton: res.app.locals.nextButton});
+		let nextCard = await Flashcard.find()
+										.limit(amount)
+										.skip(startIndex+amount)
+										.populate()
+										.exec();
+		if(nextCard[0]){
+			res.app.locals.nextButton = true;
+		}
+		else{
+			res.app.locals.nextButton = false;
+		}						
+		res.render("flashcards", {cards: queriedCard, qstring: req.qstring, current: req.query.page, nextButton: res.app.locals.nextButton});
 	}
 	catch(err){
 		console.log(err);
