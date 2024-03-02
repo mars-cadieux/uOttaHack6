@@ -1,0 +1,50 @@
+/* Colour Scheme */
+:root{
+    --backgroundprimary: #ffffff;
+    --backgroundsecondary: #bcbcbc;
+    --backgroundtertiary: #808080;
+    --accentprimary: #24b2ab;
+    --accentsecondary: #f44336;
+    
+    --textlighter: #7c6f64;
+    --textlight: #665c54;
+    --textdark: #504945;
+    --textdarker: #282828;
+
+    --linkcolour: #378959;
+
+    --primaryfont: "Noto Serif", serif;
+    --secondaryfont: "Noto Serif", serif;
+    --italicizedfont: "Noto Serif", sans-serif;
+}
+
+/* Global Styles */
+header {
+    width: 100%;
+    text-align: center;
+    margin: 20px;
+}
+
+body {
+    background-color: var(--backgroundprimary);
+    font-family: var(--primaryfont);
+    color: var(--textdarker);
+    font-size: 20px;
+    line-height: 24px;
+}
+
+footer {
+    margin-top: 0.5em;
+    padding-top: 0.5em;
+    text-align: center;
+}
+
+h1 {
+    font-family: var(--italicizedfont), serif;
+    font-style: italic;
+    letter-spacing: 5px;
+    word-spacing: 7px;
+    font-weight: 100;
+    color: var(--accentprimary);
+    font-size: 2em;
+}
