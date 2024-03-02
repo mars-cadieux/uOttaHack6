@@ -36,7 +36,7 @@ let flashcardSchema = Schema({
 
     category: {
         type: String,
-        required: true,
+        required: false,
         minLength: 1,
         maxlength: 1,
         match: /[dp]/i, // (d)efinitions, (p)ractice questions, add more as needed

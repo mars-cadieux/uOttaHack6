@@ -95,7 +95,7 @@ app.get('/upload', (req, res) => {
 
 app.post('/upload', insertFlashCards, sendCards);
 
-app.get('/flashcards', sendCards);
+app.get('/flashcards', paginationBuilder, sendCards);
 
 
 
@@ -245,10 +245,49 @@ async function insertFlashCards(req, res, next){
 	res.status(201).send("Your flashcards were generated successfully!");
 }
 
+//create a query limit and page number variable to support pagination
+function paginationBuilder(req, res, next) {
+
+	//build a query string to use for pagination later
+	let params = [];
+	for (prop in req.query) {
+		if (prop == "page") {
+			continue;
+		}
+		params.push(prop + "=" + req.query[prop]);
+	}
+	req.qstring = params.join("&");
+
+	req.query.limit=1;
+
+	try {
+		req.query.page = req.query.page || 1;
+		req.query.page = Number(req.query.page);
+		if (req.query.page < 1) {
+			req.query.page = 1;
+		}
+	} catch {
+		req.query.page = 1;
+	}
+
+	if (!req.query.name) {
+		req.query.name = "?";
+	}
+
+	next();
+}
+
 async function sendCards(req, res, next){
+	let startIndex = ((req.query.page - 1) * req.query.limit);
+	let amount = req.query.limit;
+
 	try{
-		let queriedCards = await Flashcard.find().populate().exec();
-		res.render("flashcards", {cards: queriedCards});
+		let queriedCards = await Flashcard.find()
+											.limit(amount)
+											.skip(startIndex)
+											.populate()
+											.exec();
+		res.render("flashcards", {cards: queriedCards, qstring: req.qstring, current: req.query.page, nextButton: res.app.locals.nextButton});
 	}
 	catch(err){
 		console.log(err);

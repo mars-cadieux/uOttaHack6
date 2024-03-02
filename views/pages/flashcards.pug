@@ -15,6 +15,16 @@ body
     - let backText = cards[0].backSide
     div#frontSide #{frontText}
     div#backSide #{backText}
+    div#prevNextButtons 
+      if current > 1
+        - let url = "/flashcards?page=" + (current-1)
+        - if(qstring.length > 0){ url += "&" + qstring; }
+        a.prevButton.neonButton(href=url) Previous
+        | 
+      - url = "/flashcards?page=" + (current+1)
+      - if(qstring.length > 0){ url += "&" + qstring; }
+      if(nextButton)
+        a.nextButton.neonButton(href=url) Next
     //- When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
 
 script(src='../flashcards.js')
