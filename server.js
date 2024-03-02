@@ -3,7 +3,7 @@ const express = require('express');
 const pug = require('pug');
 const fs = require('fs');
 //const mc = require('mongodb').MongoClient;
-//const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 let app = express();
 
@@ -29,13 +29,16 @@ app.get('/', (req, res) => {
 	res.render('main.pug');
 });
 
-// app.post('/', (req, res) => {
-// 	let file = req.body;
-// 	console.log(file);
-// 	//let fileParsed = fs.readFileSync(file, "utf-8")
-// });
+app.post('/', insertFlashCards, (req, res) => {
+	
+	res.status(200).send();
+	//let fileParsed = fs.readFileSync(file, "utf-8")
+});
 
-
+async function insertFlashCards(req, res, next){
+	let file = req.body;
+	console.log(file);
+}
 
 
 
@@ -46,8 +49,17 @@ app.get('/', (req, res) => {
  **************************************************************/
 
 async function run() {
-	console.log("Server running on Port 3000");
+	try {
+		await mongoose.connect('mongodb://127.0.0.1/LaTeXLatte');
+		db = mongoose.connection;
+	} 
+	catch(err) {
+		console.log(err);
+	}
+	finally {
+		console.log("Server running on Port 3000");
 		app.listen(3000); 
+	}
 }
 // Run the function and handle any errors
 run().catch(console.dir);

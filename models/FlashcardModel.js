@@ -23,7 +23,7 @@ let flashcardSchema = Schema({
     //userames will be strings between 1-30 characters
 	//must consist of only lowercase characters, digits, underscores (_), and periods (.)
 	//will be trimmed automatically 
-	uploadedBy: { type: Schema.Types.ObjectId, ref: 'Creator' },
+	uploadedBy: { type: Schema.Types.ObjectId, ref: 'User' },
 
     // Date of when the flashcard was uploaded
     date: Date
