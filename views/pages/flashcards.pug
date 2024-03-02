@@ -5,10 +5,16 @@ head
   meta(name='description' content='')
   meta(name='viewport' content='width=device-width, initial-scale=1')
   link(rel='stylesheet' href='')
+  script(src="https://polyfill.io/v3/polyfill.min.js?features=es6")
+  script(type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js")
 body
   include ../partials/header
   main
-    div#frontSide 
-    div#backSide
-  
+    - let frontText = cards[0].frontSide
+    - let backText = cards[0].backSide
+    div#frontSide #{frontText}
+    div#backSide #{backText}
+    //- When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+
 script(src='../flashcards.js')

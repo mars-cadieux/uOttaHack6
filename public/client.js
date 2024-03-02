@@ -3,7 +3,7 @@ let genButton = document.getElementById("generateButton");
 let currentFileContent = null;
 
 uploadInput.addEventListener('change', function(event){
-	const reader = new FileReader()
+	const reader = new FileReader();
   	reader.onload = handleFileLoad;
   	reader.readAsText(event.target.files[0])
 });
@@ -22,9 +22,9 @@ function generateFlashcards() {
 
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
-		if(this.readyState == 4 && this.status == 200){
-			console.log("success!");
-			window.location.href = "/flashcards";
+		if(this.readyState == 4 ){
+			let response = this.responseText;
+			window.alert(response);
 		}
 	}
 	//let test = {"test": "test"};
