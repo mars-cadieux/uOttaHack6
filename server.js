@@ -5,6 +5,9 @@ const fs = require('fs');
 //const mc = require('mongodb').MongoClient;
 const mongoose = require("mongoose");
 
+const User = require('./models/UserModel.js');
+const Flashcard = require('./models/FlashcardModel.js');
+
 let app = express();
 
 //Body parser
@@ -29,17 +32,34 @@ app.get('/', (req, res) => {
 	res.render('main.pug');
 });
 
-app.post('/', insertFlashCards, (req, res) => {
-	
-	res.status(200).send();
-	//let fileParsed = fs.readFileSync(file, "utf-8")
-});
+app.post('/', insertFlashCards, sendCards);
 
 async function insertFlashCards(req, res, next){
 	let file = req.body;
 	console.log(file);
+	for(const key of Object.keys(file)) {
+		let newCard = new Flashcard();
+		newCard.frontSide = key;
+		newCard.backSide = file[key];
+		//TODO: newCard.uploadedBy = req.session.username;
+		newCard.date = new Date();
+
+		try{
+			const result = await newCard.save();
+			console.log(result);
+		}
+		catch(err){
+			console.log(err);
+			res.status(400).send("Invalid entries.");
+		}
+	}
+
+	next();
 }
 
+async function sendCards(req, res, next){
+	res.render("main.pug");
+};
 
 
 

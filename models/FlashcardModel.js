@@ -23,7 +23,14 @@ let flashcardSchema = Schema({
     //userames will be strings between 1-30 characters
 	//must consist of only lowercase characters, digits, underscores (_), and periods (.)
 	//will be trimmed automatically 
-	uploadedBy: { type: Schema.Types.ObjectId, ref: 'User' },
+	uploadedBy: { 
+        type: String, 
+		required: false, //TODO: change to true when user data becomes integrated with db
+		minlength: 1,
+		maxlength: 30,
+		match: /[a-z\d_\.]+/,
+		trim: true 
+    },
 
     // Date of when the flashcard was uploaded
     date: Date
