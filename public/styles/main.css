@@ -1,0 +1,40 @@
+@import url(root.css);
+
+.coffeeSleeveContainer{
+    text-align: center;
+}
+
+.coffeeSleeve{
+    margin: auto;
+    clip-path: polygon(0 0, 100% 0, 93% 100%, 7% 100%);
+    width: 70%;
+    height: 100%;
+}
+.fileUploadWrapper{
+    background: var(--backgroundtertiary);
+    border-top: dashed 5px var(--accenttertiary);
+    border-bottom: dashed 5px var(--accenttertiary);
+    padding-top:50px;
+    padding-bottom:50px;
+    cursor: pointer;
+
+}
+
+#uploadTex{
+    font-family: var(--primaryfont);
+    font-size: 1em;
+}
+
+#uploadTex::file-selector-button {
+    font-family: var(--primaryfont);
+    background-color: var(--backgroundsecondary);
+    color: var(--textdarker);
+    margin: 0.5em;
+    cursor: pointer;
+    border-radius:10px;
+    border: solid 2px var(--textdarker)
+}
+
+#generateButton{
+
+}
