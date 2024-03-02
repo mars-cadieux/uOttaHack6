@@ -41,7 +41,25 @@ async function insertFlashCards(req, res, next){
 }
 
 
-
+async function addCardToDB(front, back){
+	const Flashcard = mongoose.model('Flashcard', {
+        FrontSide: String,
+        BackSide: String
+    });
+      
+    const data = new Flashcard({
+        FrontSide: front,
+        BackSide: back
+    });
+    
+    try{
+        await data.save();
+        console.log('data saved to db');
+    }
+    catch (error) {
+        console.error('error connecting', error);
+    }
+}
 
 
 /**************************************************************
@@ -63,3 +81,5 @@ async function run() {
 }
 // Run the function and handle any errors
 run().catch(console.dir);
+
+// test  addCardToDB("front", "back");
