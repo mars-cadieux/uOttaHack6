@@ -1,0 +1,20 @@
+html
+	head
+		title LaTeX Latte Login
+		//- link(rel="icon", type="image/x-icon", href="favicon.ico")
+
+	body(style="text-align: center;")
+		div#loginMain
+			div#loginForm
+				label.login(for='username') Username:
+				br
+				input#username(type='text', name= 'username' required)
+				br
+				br
+				label.login(for='password') Password:
+				br
+				input#password(type='password', name= 'password' required)
+				br
+				button#loginButton Sign In
+				button#registerButton Register
+	script(src="../../login.js")
