@@ -26,6 +26,6 @@ Add the following commands to the top of your .tex file in order to be able to u
 
 \newcommand{\definition}[2]{\textbf{#1}: #2}
 
-%custom underline shortcut
+%defining a new command to write "code" type text inline. will be pink with typewriter font
 
-\newcommand{\ul}[1]{\underline{\smash{#1}}}
+\newcommand{\code}[1]{\textcolor{Thistle}{\texttt{#1}}}
