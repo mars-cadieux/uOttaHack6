@@ -8,15 +8,18 @@
     --accentsecondary: #f44336;
     --accenttertiary: #e1bb88;
     
-    --textlighter: #7c6f64;
-    --textlight: #665c54;
-    --textdark: #504945;
-    --textdarker: #282828;
+    --textlight: #ead4b8;
+    --textdark: #282828;
 
     --linkcolour: #378959;
-
+    
     --primaryfont: "Kalam", serif;
     --secondaryfont: "Satisfy", sans-serif;
+}
+
+.code{
+    font-family: 'Courier New', Courier, monospace;
+    color: #ff0000;
 }
 
 /* Global Styles */
@@ -29,9 +32,6 @@ body {
     margin-right:15%;
     margin-left: 15%;
 }
-
-
-
 
 main{
     border-radius: 0 0 20px 20px;
@@ -79,6 +79,10 @@ header a{
     text-decoration: 1px underline var(--accenttertiary);
 }
 
+#darkModeToggle{
+    cursor: pointer
+}
+
 #leftHeader{
     margin-right: auto;
     display: flex;
@@ -105,8 +109,6 @@ header a{
     margin-left: auto;
 }
 
-
-
 button{
     font-family: var(--primaryfont);
     background-color: var(--backgroundsecondary);
@@ -132,5 +134,4 @@ input:focus{
     header h1{
         display:none;
     }
-
 }
