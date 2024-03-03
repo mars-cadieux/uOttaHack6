@@ -1,7 +1,7 @@
 html
 	head
 		title LaTeX Latte Login
-		//- link(rel="icon", type="image/x-icon", href="favicon.ico")
+		link(rel="icon", type="image/x-icon", href="assets/favicon.png")
 		link(rel='stylesheet' href='styles/login.css')
 
 	body(style="text-align: center;")
@@ -9,6 +9,7 @@ html
 			#leftHeader
 				img#logo(src='assets/logo.png')
 				h1 LaTeX Latte
+			#darkModeToggle(onclick="toggleDarkMode()" href="#") 🌙
 		main 
 			div#loginMain
 				div#loginForm
@@ -22,3 +23,5 @@ html
 					button#loginButton Sign In
 					button#registerButton Register
 	script(src="../../login.js")
+	script(src="../../darkmode.js")
+	
