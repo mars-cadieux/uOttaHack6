@@ -21,7 +21,10 @@ function generateFlashcards() {
 	console.log(parsedFile);
 
     let dropdown = document.getElementById("courseSelector");
-    parsedFile.courseCode = dropdown.value;
+	let cc = dropdown.value;
+	let ccUpper = cc.toUpperCase();
+	console.log(ccUpper);
+    parsedFile.courseCode = ccUpper;
 
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {

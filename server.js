@@ -96,9 +96,11 @@ app.get('/upload', getCourses, (req, res) => {
 
 app.post('/upload', insertFlashCards, sendCards);
 
-app.get('/flashcards', paginationBuilder, sendCards);
+app.get('/flashcards/:id', paginationBuilder, sendCards);
 
 app.post('/addCourse', addCourse);	
+
+app.get('/courses', sendCourses);
 
 
 
@@ -236,8 +238,13 @@ async function insertFlashCards(req, res, next){
 	let file = req.body;
 	//console.log(file);
 
-	courseCode = req.body.courseCode;
+	console.log(req.body.courseCode);
+
+	let courseCode = req.body.courseCode;
 	delete file.courseCode;
+
+	console.log('courseCode');
+	console.log(courseCode);
 
 	for(const key of Object.keys(file)) {
 		let newCard = new Flashcard();
@@ -247,10 +254,15 @@ async function insertFlashCards(req, res, next){
 			{ $addToSet: {flashcards: newCard._id} }
 		);
 
+		let course = await Course.find().where("courseCode").eq(courseCode).exec();
+		console.log(course);
+		let courseID = course[0]._id;
+
 		newCard.frontSide = key;
 		newCard.backSide = file[key];
 		newCard.uploadedBy = req.session.username;
 		newCard.date = new Date();
+		newCard.course = courseID;
 
 		try{
 			const result = await newCard.save();
@@ -267,6 +279,9 @@ async function insertFlashCards(req, res, next){
 
 //create a query limit and page number variable to support pagination
 function paginationBuilder(req, res, next) {
+	let paramCourseCode = req.params.id;
+	res.app.locals.courseCode = paramCourseCode.replace("%20", ' ');
+	console.log(res.app.locals.courseCode);
 
 	//build a query string to use for pagination later
 	let params = [];
@@ -302,23 +317,33 @@ async function sendCards(req, res, next){
 	let amount = req.query.limit;
 
 	try{
+		let course = await Course.find()
+									.where("courseCode").eq(res.app.locals.courseCode)
+									.exec();
+		let courseID = course[0]._id;
+		console.log(course);
+		console.log(courseID);
 		let queriedCard = await Flashcard.find()
+											.where("course").eq(courseID)
 											.limit(amount)
 											.skip(startIndex)
 											.populate()
 											.exec();
 		let nextCard = await Flashcard.find()
+										.where("course").eq(courseID)
 										.limit(amount)
 										.skip(startIndex+amount)
 										.populate()
 										.exec();
+		console.log(queriedCard);
+		console.log(nextCard);
 		if(nextCard[0]){
 			res.app.locals.nextButton = true;
 		}
 		else{
 			res.app.locals.nextButton = false;
 		}						
-		res.render("flashcards", {cards: queriedCard, qstring: req.qstring, current: req.query.page, nextButton: res.app.locals.nextButton});
+		res.render("flashcards", {cards: queriedCard, qstring: req.qstring, current: req.query.page, nextButton: res.app.locals.nextButton, courseCode: course[0].courseCode});
 	}
 	catch(err){
 		console.log(err);
@@ -328,7 +353,9 @@ async function sendCards(req, res, next){
 };
 
 async function addCourse(req, res, next){
-	courseCode = await Course.find({ courseCode: req.body.courseCode});
+	let cc = req.body.courseCode;
+	let ccUpper = cc.toUpperCase();
+	courseCode = await Course.find({ courseCode: ccUpper});
 
 	if (courseCode[0]){
 		res.status(400).send("Course already exists.");
@@ -337,7 +364,7 @@ async function addCourse(req, res, next){
 	else{
 		try {
 			let newCourse = new Course();
-			newCourse.courseCode = req.body.courseCode;
+			newCourse.courseCode = ccUpper;
 			newCourse.save();
 			res.status(201).send("Course added!");
 		}
@@ -347,6 +374,18 @@ async function addCourse(req, res, next){
 		}
 	}
 	  
+}
+
+async function sendCourses(req, res) {
+	try{
+		let courses = await Course.find();
+		console.log(courses);
+		res.render('courses', {courses: courses});
+	}
+	catch(err){
+		console.log(err);
+		res.status(500).send("An error occurred, please try again later.");
+	}
 }
 
 
