@@ -234,9 +234,19 @@ function logout(req, res, next) {
 
 async function insertFlashCards(req, res, next){
 	let file = req.body;
-	console.log(file);
+	//console.log(file);
+
+	courseCode = req.body.courseCode;
+	delete file.courseCode;
+
 	for(const key of Object.keys(file)) {
 		let newCard = new Flashcard();
+
+		let result = await Course.updateOne(
+			{ courseCode: courseCode },
+			{ $addToSet: {flashcards: newCard._id} }
+		);
+
 		newCard.frontSide = key;
 		newCard.backSide = file[key];
 		newCard.uploadedBy = req.session.username;
@@ -325,7 +335,6 @@ async function addCourse(req, res, next){
 		
 	}
 	else{
-		//TODO: add flashcards
 		try {
 			let newCourse = new Course();
 			newCourse.courseCode = req.body.courseCode;
