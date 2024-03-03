@@ -238,8 +238,13 @@ async function insertFlashCards(req, res, next){
 	let file = req.body;
 	//console.log(file);
 
+	console.log(req.body.courseCode);
+
 	let courseCode = req.body.courseCode;
 	delete file.courseCode;
+
+	console.log('courseCode');
+	console.log(courseCode);
 
 	for(const key of Object.keys(file)) {
 		let newCard = new Flashcard();
@@ -250,6 +255,7 @@ async function insertFlashCards(req, res, next){
 		);
 
 		let course = await Course.find().where("courseCode").eq(courseCode).exec();
+		console.log(course);
 		let courseID = course[0]._id;
 
 		newCard.frontSide = key;
@@ -347,7 +353,9 @@ async function sendCards(req, res, next){
 };
 
 async function addCourse(req, res, next){
-	courseCode = await Course.find({ courseCode: req.body.courseCode});
+	let cc = req.body.courseCode;
+	let ccUpper = cc.toUpperCase();
+	courseCode = await Course.find({ courseCode: ccUpper});
 
 	if (courseCode[0]){
 		res.status(400).send("Course already exists.");
@@ -356,7 +364,7 @@ async function addCourse(req, res, next){
 	else{
 		try {
 			let newCourse = new Course();
-			newCourse.courseCode = req.body.courseCode;
+			newCourse.courseCode = ccUpper;
 			newCourse.save();
 			res.status(201).send("Course added!");
 		}
