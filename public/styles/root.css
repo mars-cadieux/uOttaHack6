@@ -19,7 +19,8 @@
 
 .code{
     font-family: 'Courier New', Courier, monospace;
-    color: #ff0000;
+    font-weight: 550;
+    color: var(--accentprimary);
 }
 
 /* Global Styles */
