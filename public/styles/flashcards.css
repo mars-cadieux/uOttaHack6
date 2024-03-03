@@ -1,0 +1,82 @@
+@import url(root.css);
+
+.lidTop{
+    margin: auto;
+    clip-path: polygon(5% 0, 95% 0%, 100% 100%, 0% 100%);
+    width: 30.5%;
+    height: 30px;
+    background: #654d33;
+}
+
+.lidBottom{
+    margin: auto;
+    clip-path: polygon(5% 0, 95% 0%, 100% 100%, 0% 100%);
+    width:33.9%;
+    height: 25px;
+    background: #654d33;
+
+}
+
+.coffeeCup{
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+    width: 30%;
+    height: max-content;
+    background: #fff8ef;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin: auto;
+}
+
+
+#coffeeSleeve{
+    width: 100%;
+    height: min-content;
+    background: var(--backgroundtertiary);
+    border-top: dashed 5px var(--accenttertiary);
+    border-bottom: dashed 5px var(--accenttertiary);
+    padding-top:50px;
+    padding-bottom:50px;
+}
+
+#prevNextButtons{
+    text-align: center;
+}
+
+
+#frontSide{ 
+    margin-left: 10%;
+    margin-right: 10%;
+    font-weight: 700;
+    text-align: center;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(-150%);
+}
+
+#backSide{
+    margin-left: 10%;
+    margin-right: 10%;
+    visibility:visible;
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0%);
+}
+
+
+@media only screen and (max-width:800px) {
+    .lidTop{
+        clip-path: polygon(5% 0, 95% 0%, 100% 100%, 0% 100%);
+        width: 50%;
+        height: 30px;
+    
+    }
+    
+    .lidBottom{
+        clip-path: polygon(5% 0, 95% 0%, 100% 100%, 0% 100%);
+        width: 55%;
+        height: 25px;    
+    }
+    
+    .coffeeCup{
+        clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+        width: 50%;
+    }
+}

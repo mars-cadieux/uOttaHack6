@@ -4,7 +4,8 @@ head
   title LaTeX Latte
   meta(name='description' content='')
   meta(name='viewport' content='width=device-width, initial-scale=1')
-  link(rel='stylesheet' href='styles/main.css')
+  link(rel='stylesheet' href='styles/flashcards.css')
+  link(rel="icon", type="image/x-icon", href="assets/favicon.png")
   script(src="https://polyfill.io/v3/polyfill.min.js?features=es6")
   script(type="text/javascript" id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js")
@@ -13,18 +14,23 @@ body
   main
     - let frontText = cards[0].frontSide
     - let backText = cards[0].backSide
-    div#frontSide #{frontText}
-    div#backSide #{backText}
-    div#prevNextButtons 
-      if current > 1
-        - let url = "/flashcards?page=" + (current-1)
+    .lidTop
+    .lidBottom
+    .coffeeCup
+      div#prevNextButtons 
+        if current > 1
+          - let url = "/flashcards?page=" + (current-1)
+          - if(qstring.length > 0){ url += "&" + qstring; }
+          a.prevButton.neonButton(href=url) Previous
+          | 
+        - url = "/flashcards?page=" + (current+1)
         - if(qstring.length > 0){ url += "&" + qstring; }
-        a.prevButton.neonButton(href=url) Previous
-        | 
-      - url = "/flashcards?page=" + (current+1)
-      - if(qstring.length > 0){ url += "&" + qstring; }
-      if(nextButton)
-        a.nextButton.neonButton(href=url) Next
-    //- When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-
+        if(nextButton)
+          a.nextButton.neonButton(href=url) Next
+      #coffeeSleeve
+        div#frontSide #{frontText}
+        div#backSide  #{backText}
+      
+        //- When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+script(src='../darkmode.js')
 script(src='../flashcards.js')

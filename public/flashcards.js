@@ -25,3 +25,22 @@ console.log(backSideText);
 
 document.getElementById("frontSide").innerHTML = frontSideText;
 document.getElementById("backSide").innerHTML = backSideText;
+
+
+const coffeeSleeve = document.getElementById('coffeeSleeve');
+let currentVisible = backSide;
+
+coffeeSleeve.addEventListener("click", function() {
+
+	if (currentVisible === backSide) {
+		backSide.style.transform = 'translateX(150%)';
+		frontSide.style.transform = 'translateX(0%)';
+
+		currentVisible = frontSide;
+	  } else {
+		backSide.style.transform = 'translateX(0%)';
+		frontSide.style.transform = 'translateX(150%)';
+
+		currentVisible = backSide;
+	  }
+});
