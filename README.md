@@ -19,7 +19,9 @@ You can add `\code{some text}` where *some text* will be formatted in monospace 
 Add the following commands to the top of your .tex file in order to be able to use the \definition and \code custom commands (these commands also provide nice formatting for your LaTeX notes):
 
 %new command for writing a definition, will have bold font and will insert a colon after the definition
+
 \newcommand{\definition}[2]{\textbf{#1}: #2}
 
 %custom underline shortcut
+
 \newcommand{\ul}[1]{\underline{\smash{#1}}}
