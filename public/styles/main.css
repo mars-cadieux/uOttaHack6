@@ -17,12 +17,6 @@
     padding-top:50px;
     padding-bottom:50px;
     cursor: pointer;
-
-}
-
-.code{
-    font-family: 'Courier New', Courier, monospace;
-    color: #ff0000;
 }
 
 #uploadTex{
@@ -38,8 +32,4 @@
     cursor: pointer;
     border-radius:10px;
     border: solid 2px var(--textdarker)
-}
-
-#generateButton{
-
 }
