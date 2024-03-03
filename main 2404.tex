@@ -1,0 +1,568 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{titlesec} % formats section headers
+\usepackage[fleqn]{amsmath} % [fleqn] causes equations to be left-aligned
+\usepackage{amssymb}
+\usepackage{layout}
+\usepackage{comment}
+\usepackage{ulem} % formats underlining
+\usepackage{enumitem} % formatting for itemize and enumerate
+\usepackage[dvipsnames]{xcolor} % font colours
+\usepackage{sectsty}
+\usepackage{textcomp}
+
+\graphicspath{ {./images/} } % so that you don't need to include the path each time you insert an image. In this case, your images folder would need to be titled "images". 
+
+\usepackage[skip=10pt]{parskip} % defines spacing between paragraphs
+\usepackage[a4paper, total={5.5in, 9in}]{geometry} % defines margins
+
+% how to add a clickable table of contents. [hidelinks] means they won't look like a link. Probably don't need to set colours to black when using [hidelinks], but leaving it in anyway.
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+% you then use \tableofcontents and it should be automatically generated.
+
+%defining a new command to write "code" type text inline. will be blue with typewriter font
+\newcommand{\code}[1]{\textcolor{Thistle}{\texttt{#1}}}
+
+%new command for writing a definition, will have bold font and will insert a colon after the definition
+\newcommand{\definition}[2]{\textbf{#1}: #2}
+
+% defining a bulleted list
+\newlist{bulletlist}{itemize}{1}
+\setlist[bulletlist]{label=-}
+\newenvironment{mybulletlist}
+{ \vspace{-5pt} 
+\begin{bulletlist}
+    \setlength{\itemsep}{0pt} % item separation
+    \setlength{\parskip}{0pt} % paragraph separation. needed for nested lists
+    \setlength{\parsep}{0pt}     }
+{ \end{bulletlist}                  }
+
+
+% defining a numbered list
+\newenvironment{myenumerate}
+{ \begin{enumerate}
+    \setlength{\itemsep}{5pt} % item separation
+    \setlength{\parskip}{5pt} % paragraph separation. needed for nested lists
+    \setlength{\parsep}{0pt}     }
+{ \end{enumerate}                  }
+
+% second list definition to be used as an example
+\newenvironment{myenum}
+{ \begin{enumerate}
+    \setlength{\itemsep}{5pt} 
+    \setlength{\parskip}{0pt} 
+    \setlength{\parsep}{0pt}     }
+{ \end{enumerate}                  }
+
+
+% defining a list with custom symbols for bullet points. In this case, an arrow was used for bullet points.
+\newlist{arrowlist}{itemize}{1}
+\setlist[arrowlist]{label=$\rightarrow$}
+
+% now, create an environment for the arrow list, this way you can set custom spacing between items. By default it will use the same spacing as the spacing between paragraphs. This looks ugly and too spaced out imo.
+\newenvironment{myarrowlist}
+{ \vspace{-5pt}
+\begin{arrowlist}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt} }
+{ \end{arrowlist} }
+% now you use \begin{myarrowlist} to make your arrow list!
+
+\title{COMP 2404 Exam Review}
+\author{Mars Cadieux}
+\date{December 2023}
+
+\begin{document}
+% how to change font. See LaTeX documentation for font types.
+{\fontfamily{bch}\selectfont
+
+\maketitle
+
+\section*{Definitions}
+
+\definition{Resource Acquisition is Initialization (RAII)}{all dynamic memory that needs to be deleted gets tied to an object that gets deleted. you encapsulate that resource into a class, the memory for that resource gets allocated by the class constructor when you instantiate the object, and the memory then gets deleted by the class destructor. For every \code{new} keyword, there must be a matching \code{delete}.}
+
+\definition{Rule of Three}{If you need write (customize) any one of: copy constructor, destructor, or assignment operator, then you likely need to write all three.}
+
+\definition{Object oriented design principles}{separated into three categories: low level design, high level design, and testing.}
+
+\definition{low level design}{encapsulation, abstraction, principle of least privilege}
+
+\definition{high level design}{workflow, Refactoring, design categories}
+
+\definition{Object categories}{control, boundary, Entity, collection}
+
+\definition{design pattern types}{structural, creative, behavioral, architectural}
+
+\definition{design pattern Categories}{facade, observer, Factory, anti-patterns}
+
+\definition{Facade}{simple interface for a complex class. client calls simple operations on interface Which get passed to complex classes. Ex read(filename) hides i/o stream operations, stream objects, os calls}
+
+\definition{Observer}{Subject classes contain a collection of observers which are notified when something in the subject class changes. The observer classes update themselves when notified. can be used with model view controller; observer would update the view.}
+
+\definition{Visitor}{Used to solve the multiple dispatch problem. Used when we have functions of the type \code{fun(A,B)} where both A and B have sub classes.}
+
+\definition{factory}{encapsulates creation of derived objects. Base class is often abstract, factory creates derived object and returns it to client class}
+
+\definition{testing}{unit testing, integration testing, system testing}
+
+\definition{Exception handling}{separates error reporting and error handling}
+
+\definition{Error Reporting}{Finding the problem}
+
+\definition{error handling}{handling the problem}
+
+\definition{Exception class}{base class of user defined exception classes. constructor takes a \code{string message} argument and member function \code{what()} returns that message. Exception is thrown when there is an error.}
+
+\definition{Throw}{Exit the try block and Move to the catch block. If we throw something and there is no try/catch block the program will terminate} 
+
+\definition{\code{catch(...)}}{catch all block, cannot however take in a parameter or use The thrown parameter in its error message because the compiler won't know what data type the parameter is}
+
+\definition{Public inheritance}{public $\rightarrow$ public, protected $\rightarrow$ protected, private $\rightarrow$ invisible}
+
+\definition{private inheritance}{public $\rightarrow$ private, protected $\rightarrow$ Private, private  $\rightarrow$ invisible}
+
+\definition{Cascading}{allows the chaining of overloaded operators or custom setters. For example, \code{a = b = c = d = 0} should set all of these variables to zero. Another example, for a Time object we should expect to be able to do \code{time.setHours().setMinutes().setSeconds()}. Our overloaded operators or setters need to return the object by reference to enable cascading. }
+
+\definition{Vector}{Pointer to a backing array. backing array is on the heap. Doubles in size whenever it needs to grow}
+
+\definition{STL Iterator}{An abstraction layer between algorithms and containers. Similar to a pointer, Allows access to elements of an STL container. Dereference to access contained object using \code{*} or use \code{-$>$} to call functions of the contained object. can be const or non-const}
+
+\definition{STL Iterator types}{input/output, forward, bidirectional, random access}
+
+\definition{STL Container}{Classes that contain a collection of elements. data structure for storing.}
+
+\definition{STL Container Types}{sequence, associative, container adapter}
+
+\definition{STL Algorithm}{Do not access containers directly, they use iterators}
+
+\code{.begin()}{Container member that is returned to an iterator, points to first element}
+
+\code{.end()}{container member that is returned to an iterator, points just past the last element. dereferencing \code{.end()} Will produce a seg fault}
+
+\definition{Stream}{Sequence of bytes. files, console I/O, Devices, http requests. Input/Output iterators can be used on streams}
+
+\definition{\code{istream}}{important object: \code{cin}}
+
+\definition{\code{ostream}}{important objects: \code{cout, cerr, clog}}
+
+\definition{Stream error bits}{good, bad, fail bits}
+
+\definition{stream overloaded ! operator}{returns true if one of the error bits is true}
+
+\definition{Cast to \code{void*} operator}{converts stream to a pointer, Null if one of the error bits is true, non-null otherwise}
+
+\definition{Out Iterator}{\code{ostream\_iterator$<$string$>$ outItr(cout)}} 
+
+\definition{Function signature}: Name and parameters. note that the return type is \textbf{not} part of the function signature and therefore does not contribute to overloading.
+
+\section*{Noteworthy Things}
+
+Recall that the keyword \code{this} for an object is a \textbf{pointer} to itself. if you are returning an object by reference or value  you must dereference \code{this}. Example: 
+\begin{verbatim}
+    Date& Date::setYear(int y){
+        year = y;
+        return *this;
+    }
+\end{verbatim}
+
+The compiler cannot ``compile'' a template; it needs to know what the type is. The type (usually $<$T$>$) is declared somewhere else. This is why we do not separate templates into header and source files. The compiler creates a new class for each data type used in the template.
+
+Writing a function declaration (In the class definition) where an input parameter is the templated class, we use a different template class variable otherwise we would hide the original one. example: 
+\begin{verbatim}
+    template $<$class T$>$
+    class Array{
+        template $<$class V$>$
+        friend ostream& operator$<$$<$(ostream&, Array$<$V$>$);
+    }
+\end{verbatim}
+
+If you have a vector of objects the objects are copied and destroyed when the vector grows. no copies are made if you have a vector of pointers. However the old backing array is still deleted, A new larger one is made, and the pointers are copied over.
+
+Vector functions: \code{at()} Will throw an exception if you try to access an index out of bounds, subscript (\code{[index]}) Will give a seg fault if out of bounds.
+
+Copying A vector is a shallow copy (It will just copy over the pointers of the objects in the backing array)
+
+the operator \code{==} is implemented for the vector class, however it will call \code{==} on the pointers in the vector, not using the \code{.equals()} Function you created for your objects store it in the vector 
+
+Iterator: \code{list$<$Student$>$::iterator itr;} $\rightarrow$ Can modify objects pointed to by \code{itr}
+
+Const iterator: \code{list$<$Student$>$::cons\_iterator citr;} $\rightarrow$ Cannot modify objects pointed to by \code{citr}
+
+iterator syntax:
+\begin{verbatim}
+    for(itr = stuList.begin(); itr != stuList.end(); ++itr){
+        //do stuff
+    }
+\end{verbatim}
+
+For better performance, store a local variable \code{Student* listEnd = stuList.end()} So you don't have to repeatedly call \code{.end()} In your for loop 
+
+Reverse iterators require you to begin at \code{rbegin()} (the last element) And end at \code{rend()} (just before the first element), you can't go from end() to begin()
+
+With composition, constructors are called from the inside out. Containee constructors are called before container constructor. therefore if you have a chicken object that contains an egg object, the egg constructor will be called before the chicken constructor. Destructors work from the outside in; container destructor is called first and containee destructor(s) called after the chicken's destructor will be called before the egg destructor. 
+
+With inheritance, constructors are called top down and destructors are called bottom up. So if you have a bird that inherits from animal, when you initialize a bird, the animal constructor will be called first then the bird constructor will be called. when you destroy this bird, the bird destructor will be called first and the animal destructor will be called after.
+
+A function with all default arguments has the same function signature as a function with no arguments. you cannot have two functions with the same signature, therefore you can't have both of these types of functions. for example:
+\begin{verbatim}
+    void function1(x = 0);
+    void function1();
+\end{verbatim}
+This is not allowed.
+
+When we catch strings, The data type is actually \code{catch(const char* err)}
+
+If you have a animal base class with derived class bird that then has derived class chicken, and you store chickens in a vector of animal pointers, when you call delete on these chickens it will only call the animal destructor. the solution is to put \code{virtual} in front of all of the destructors, this will then cause all of the destructors down the hierarchy chain to be called.
+
+\code{virtual} does not necessarily mean a pure virtual function, You can have a virtual function with an implementation in your base class. \code{virtual} just ensures that you will call the function of the derived class instead of the base class. A pure virtual function is when you have no implementation in the base class (\code{virtual funcName(params) = 0;})
+
+
+dump of STL
+
+Standard Template Library:
+I Library of classes and algorithms that operate on those classes.
+The good:
+I Provides useful container classes and member functions
+I Example: vector
+The bad:
+I Can be non-intuitive (e.g., iterators)
+I Many copies of our objects might be made
+I True of any data structure.
+I If we understand how they work, can be avoided.
+
+
+Containers
+I sequence containers
+I associative containers
+I container adapters
+Iterators
+I An implementation of the Iterator design pattern
+I They allow access to container elements in a consistent way
+Algorithms
+I global functions that perform operations on containers
+I typically using iterators
+
+
+Interactions between STL componentsAlgorithms ContainersIterators
+Algorithms do not access Containers directly.
+I They would need different implementations for different Containers.
+I Instead they access through Iterators.
+Iterators are an abstraction layer between Algorithms and Containers
+I They allow Algorithms and Containers to evolve separately
+
+If we use a vector of objects, objects are copied and destroyed when vector grows
+I Also if we insert or remove from the middle
+I Objects must be moved to make room.
+I I.e., be copied elsewhere.
+I Can use list of objects instead - linked list?
+I no copies are made as list grows, however
+I no subscript operator
+I we will use iterators instead
+I Vector with pointers
+I no object copies made
+
+Iterators:
+I Made to operate similarly to a pointer
+I NOT a pointer, but helpful to think of them that way
+I Iterator is a class, instances are objects
+I But we can dereference an iterator to access the contained object using *
+I Or call on functions of the contained object using -$>$
+I Allows access to the elements of an STL container
+Uses:
+I Can traverse the STL Container.
+I Can be an argument to STL Algorithms.
+
+list$<$Student$>$::iterator itr;
+I We can modify the objects pointed to by itr.
+I list$<$Student$>$::const\_iterator citr;
+I We cannot modify the objects pointed to by citr.
+I Containers have members to return Iterators.
+I .begin() - points to the first element
+I .end() - points to just past the last element
+I deferencing .end() will produce a seg-fault
+
+
+ist$<$Student$>$::iterator itr;
+for (itr = stuList.begin(); itr!= stuList.end(); ++itr) {/* do stuff
+*/}
+Iterators also have reverse iterators
+I .rbegin(); - points to just before the first element
+I .rend(); - points to last element
+list$<$Student$>$::revers\_iterator itr;
+for (itr = stuList.rbegin(); itr!= stuList.rend(); ++itr) {/* do
+stuff */}
+Also have cons\_revers\_iterator
+
+Categories of Iterators:
+
+Input/Output
+I Only work for I/O streams
+I Forward
+I Only work on containers in the forward direction
+I Bidirectional
+I Work in forward and reverse
+I Random access
+I Direct access to any element
+I Similar to arrays
+Every category contains all the abilities of those above them.
+They are all syntactically the same (except for the operations allowed).
+
+Different container implementations come with their own strengths and weaknesses,
+thus category of iterator is determined by the type of container.
+I List is bidirectional but not random access
+I Vector supports random access
+I I/O only use input/output iterators
+The category of iterator determines what algorithms can be used.
+
+
+All iterators support these operators
+I dereferencing *
+I increment ++
+I assignment =
+I equality, inequality ==, !=
+
+
+Forward, bidirectional, random access support:
+I .begin() - points to first member.
+I .end() - points to just past the last member.
+I increment operator ++.
+
+
+Bidirectional, random access support:
+I .rbegin() - points to last member.
+I .rend() - points to just before the first member.
+I decrement operator --.
+
+
+Random access iterators support:
+I Subscript: [ ]
+I The following operators operate on the index:
+I Relational: $<$, $>$, $<$=, $>$=
+I Addition: +, +=
+I Subtraction: -, -=
+
+
+For optimal performance
+I use prefix increment and decrement
+I no copies need to be made
+I store loop ending variable locally
+I no repeated calls to .end()
+
+
+Containers are classes for that contain a collection of objects.
+I Data structures for storing elements
+I All elements in a container have the same data type
+I Many member functions provided
+Types of C++ STL Containers:
+I Sequence
+I Associative
+I Container adapters
+
+
+All STL containers provide:
+I Default constructor, copy constructor, destructor, assignment operator
+I Insertion and deletion member functions:
+I insert(), delete(), clear()
+I many overloaded versions - check documentation
+I Size related functions:
+I size(), empty(), max\_size()
+I Relational operators:
+I $<$,$>$,$<$=,$>$=,==, !=
+I Comparisons are based on lexicographical order.
+
+
+Sequence and associative containers provide:
+I Access to iterators:
+I begin(), end(), rbegin(), rend()
+To use your classes in containers, your class should provide:
+I Operators for copying:
+I Copy constructor
+I Assignment operator
+I Overloaded comparison operators (for sorting and finding):
+I Equality ==
+I Less than $<$
+
+
+A stream is a sequence of bytes:
+I Files
+I Console I/O
+I Devices
+I HTTP requests
+The following can be used on streams:
+I Input/output iterators
+I Some STL algorithms
+I For example: copy
+
+coding example notes 
+
+\#include $<$iterator$>$
+ostream\_iterator$<$string$>$ outItr(cout);
+I We initialize the output iterator with a stream
+I in this case cout
+*outItr="Print this to screen\\n";
+*outItr="Then print this to screen\\n";
+The iterator becomes syntactic sugar for the stream.
+
+\begin{verbatim}
+#include $<$algorithm$>$
+vector$<$string$>$ words;
+
+ostream\_iterator$<$string$>$ outItr(cout);
+
+cout$<$$<$"Your words are:"$<$$<$endl;
+
+copy(words.begin(), words.end(), outItr);
+
+ostream\_iterator$<$string$>$ outItr2(cout,"*");
+\end{verbatim}
+
+
+Input some words that you push
+onto the vector ending with
+”end”
+I The words are copied to the
+output stream one by one (no
+spaces).
+I To include a space or other
+delimiter, we define an iterator
+with a second argument
+
+
+Sequence Containers are containers that retain the order of the elements.
+I Types of sequence containers:
+I vector
+I list
+I deque
+I Useful member functions:
+I front(), back(), push\_back(), pop\_back()
+
+
+Vector is the C++ version of Java’s Arraylist:
+I Array based data structure.
+I Elements are stored in a backing array, and convenience member functions are built
+around it
+I Elements are contiguous in memory.
+I Allows for quick access.
+I A vector will grow as needed.
+I When space runs out, it allocates a new, bigger array.
+I Copies everything from old array to new array.
+I Destroys the old array and everything in it.
+
+
+What is the implication of this?
+I makes new, bigger array
+I copies everything over
+I destroys old array and everything in it
+If you are storing objects, this is an expensive operation.
+If you store objects with dynamic memory for a member variable, you would likely use
+a move operation.
+
+
+Insertion and deletion
+I at the back: very efficient
+I at index i: elements i through n are copied 1 position over to make room.
+Iterators
+I Supports random access iterators.
+
+
+
+Coding Example p5 Notes
+I Can copy in reverse by using.
+copy(words.rbegin(), words.rend(), outItr);
+I If we use the vector copy constructor, it allocates exactly enough memory to
+store everything in the vector being copied.
+I That is, the backing array will have size vector.capacity() of the vector being
+copied.
+
+
+Lists
+Implemented as a doubly-linked list.
+I Elements are not contiguous in memory.
+I list grows (and shrinks?) as needed.
+I No unnecessary memory allocated.
+I No random access.
+Insertion and deletion:
+I Efficient if you have direct access to the Node.
+Iterators
+I Supports bidirectional iterators.
+I No random access
+
+Coding Example p6 Notes
+I Observe that to copy a vector of objects to the output stream we must have
+overridden the stream insertion operator.
+I We can sort if overload operator$<$
+I We can also pass in a function to replace operator$<$.
+
+Deques
+Double-ended queues (deques):
+I Implementation is not simple
+I Stores chunks (arrays) of data
+I Some is contiguous
+I Grows as needed
+I Supports random access
+Insertion and deletion:
+I Very fast at the front or back
+I Better than vector in the middle, worse than list
+Iterators:
+I Supports random access iterators.
+
+
+Associative containers use keys:
+I Keys are stored in user-specified order
+I Default is ascending order.
+I We can supply our own function to order the elements.
+I Keys can be associated with additional data
+I but that is not necessary.
+Types of Associative Containers:
+I set (keys, no duplicates)
+I multiset (keys, yes dupes)
+I map (kay-val, no dupes)
+I multimap (key-val, yes dupes)
+
+
+
+Member functions:
+I insert(), find(), lower\_bound(), upper\_bound()
+Iterators:
+I Bidirectional
+
+
+If we want a data structure to store in sorted order
+I instead of relying on algorithms library
+We can use the multiset
+I Uses a binary search tree to maintain order
+I Dynamically resizes
+I Objects stored are constant
+I But can be removed or added
+
+
+Container Adapters
+Higher level containers providing very specific functionality:
+I stack
+I queue
+I priority\_queue
+
+Use underlying containers to store elements:
+I stack
+I implemented with any sequence container
+I queue
+I implemented with deque or list
+I priority\_queue
+I vector or deque
+Users can specify which underlying containers are used.
+They do not support iterators
+
+
+
+}
+
+\end{document}
