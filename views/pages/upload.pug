@@ -15,4 +15,10 @@ body
           input#uploadTex(type='file' accept='.tex')
       br
       button#generateButton Generate!
+      select#courseSelector Courses
+        each option in options
+          option(value=option) #{option}
+      input#courseField(type='text', name= 'coursecode' required, placeholder="CourseCode")
+      button#addCourseButton Add Course
 script(src='../client.js')
+script(src='../courses.js')

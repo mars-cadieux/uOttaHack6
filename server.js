@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 
 const User = require('./models/UserModel.js');
 const Flashcard = require('./models/FlashcardModel.js');
+const Course = require('./models/CourseModel.js');
 
 let app = express();
 
@@ -89,13 +90,15 @@ app.post('/register', register);
 //send GET request to /logout route to logout
 app.get("/logout", logout);    
 
-app.get('/upload', (req, res) => {
-	res.render('upload.pug');
+app.get('/upload', getCourses, (req, res) => {
+	res.render('upload.pug', {options: res.app.locals.courses});
 });
 
 app.post('/upload', insertFlashCards, sendCards);
 
 app.get('/flashcards', paginationBuilder, sendCards);
+
+app.post('/addCourse', addCourse);	
 
 
 
@@ -110,6 +113,13 @@ function auth(req, res, next) {
 		res.status(401).redirect('/login');
 		return;
 	}
+	next();
+}
+
+async function getCourses(req, res, next){
+	let objs = await Course.find().select('courseCode').exec();
+	res.app.locals.courses = objs.map(obj => obj.courseCode);
+
 	next();
 }
 
@@ -306,6 +316,29 @@ async function sendCards(req, res, next){
 	}
 	
 };
+
+async function addCourse(req, res, next){
+	courseCode = await Course.find({ courseCode: req.body.courseCode});
+
+	if (courseCode[0]){
+		res.status(400).send("Course already exists.");
+		
+	}
+	else{
+		//TODO: add flashcards
+		try {
+			let newCourse = new Course();
+			newCourse.courseCode = req.body.courseCode;
+			newCourse.save();
+			res.status(201).send("Course added!");
+		}
+		catch(err){
+			console.log(err);
+			res.status(401).send("Invalid course code.");
+		}
+	}
+	  
+}
 
 
 
