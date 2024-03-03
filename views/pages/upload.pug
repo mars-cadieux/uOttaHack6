@@ -16,6 +16,8 @@ body
           input#uploadTex(type='file' accept='.tex')
       br
       button#generateButton Generate!
+      br
+      h2 Add Course
       select#courseSelector Courses
         each option in options
           option(value=option) #{option}

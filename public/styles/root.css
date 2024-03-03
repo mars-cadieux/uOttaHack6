@@ -124,6 +124,22 @@ button{
     border: solid 2px var(--accentprimary)
 }
 
+select{
+    font-family: var(--primaryfont);
+    background-color: var(--backgroundsecondary);
+    border-radius: 10px;
+    border: 2px solid var(--accentprimary);
+    padding:10px;
+}
+
+input{
+    font-family: var(--primaryfont);
+    background-color: var(--backgroundsecondary);
+    border-radius: 20px;
+    border: 2px solid var(--accentprimary);
+    padding:10px;
+}
+
 input:focus{
     outline: var(--accentprimary)
 }
