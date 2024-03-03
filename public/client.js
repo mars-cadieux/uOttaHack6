@@ -27,9 +27,7 @@ function generateFlashcards() {
 			window.alert(response);
 		}
 	}
-	//let test = {"test": "test"};
 
-	//TODO: add user data 
 	xhttp.open("POST", '/upload');
 	xhttp.setRequestHeader("Content-Type", "application/json");
 	xhttp.send(JSON.stringify(parsedFile));
@@ -37,7 +35,7 @@ function generateFlashcards() {
 
 function parseDefinitionToArray(str) {
     let regex1 = RegExp('\\$[^\\$]+\\$', 'gd');
-    let regex2 = RegExp('definition{(.+)}{(.+)}', 'gs');
+    let regex2 = RegExp('definition{(.+)}{(.+)}', 'g');
     let array1;
 
     while ((array1 = regex1.exec(str)) !== null) {
@@ -61,16 +59,16 @@ function parseDefinitionToArray(str) {
 }
 
 function parseDefinitionToObject(str) {
-    let regex1 = RegExp('\\$[^\\$]+\\$', 'gd');
-    let regex2 = RegExp('definition{(.+)}{(.+)}', 'gs');
+    let regex1 = RegExp('(?<!\\$)(\\$[^\\$]+\\$)(?!\\$)', 'gd');
+    let regex2 = RegExp('definition{(.+)}{(.+)}', 'g');
     let array1;
 
     while ((array1 = regex1.exec(str)) !== null) {
         let index1 = array1.indices[0][0];
         let index2 = array1.indices[0][1];
-        if (str[index1 - 1] !== "$" && str[index2] !== "$$") {
+        //if (str[index1 - 1] !== "$" && str[index2] !== "$$") {
             str = str.substring(0, index1) + "\\(" + str.substring(index1 + 1, index2 - 1) + "\\)" + str.substring(index2, str.length);
-        }
+        //}
     }
     let jsonObject = {null : null};
     while ((array1 = regex2.exec(str)) !== null) {
