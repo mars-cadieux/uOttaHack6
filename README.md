@@ -1,5 +1,9 @@
 # LaTeX Latte
 
+## Capabilities
+
+LaTex Latte is capable of generating flashcards from LaTeX files that can then be stored and reviewed directly with the webapp. Simply upload a LaTeX file following the formatting specified below, add the course code if you want, and generate the flashcards. Navigate to the flashcards page and begin studying! Click *next* or *previous* to move between flashcards or click the flashcard itself to reveal the answer. 
+
 ## Installation Instructions
 
 1. Install Node.js by running `npm install node` in a command window in the root folder of the repository
