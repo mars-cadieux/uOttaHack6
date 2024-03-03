@@ -12,9 +12,9 @@ addCourseButton.addEventListener('click', function() {
             if(this.status==201){
 				var dropdown = document.getElementById('courseSelector');
                 var option = document.createElement('option');
-                option.value = courseCode;
-                option.text = courseCode;
-                dropdown.add(option);;
+                option.value = courseCode.toUpperCase();
+                option.text = courseCode.toUpperCase();
+                dropdown.add(option);
 			}
 		}
 	}
