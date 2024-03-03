@@ -2,7 +2,7 @@ const express = require('express');
 //const session = require('express-session');
 const pug = require('pug');
 const fs = require('fs');
-//const mc = require('mongodb').MongoClient;
+const socketio = require('socket.io');
 const mongoose = require("mongoose");
 
 const User = require('./models/UserModel.js');
@@ -96,6 +96,10 @@ app.get('/upload', (req, res) => {
 app.post('/upload', insertFlashCards, sendCards);
 
 app.get('/flashcards', paginationBuilder, sendCards);
+
+app.get('/room', (req, res) => {
+	res.render('room.pug');
+});
 
 
 
@@ -314,6 +318,16 @@ async function sendCards(req, res, next){
  * Start listening
  **************************************************************/
 
+const server = app.listen(3000, () => {
+	console.log("Server running on port 3000");
+});
+
+const io = socketio(server);
+
+io.on('connection', (socket) => {
+    console.log('New connection');
+});
+
 async function run() {
 	try {
 		await mongoose.connect('mongodb://127.0.0.1/LaTeXLatte');
@@ -323,8 +337,8 @@ async function run() {
 		console.log(err);
 	}
 	finally {
-		console.log("Server running on Port 3000");
-		app.listen(3000); 
+		//console.log("Server running on Port 3000");
+		//app.listen(3000); 
 	}
 }
 // Run the function and handle any errors

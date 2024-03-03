@@ -5,15 +5,10 @@ head
   meta(name='description' content='')
   meta(name='viewport' content='width=device-width, initial-scale=1')
   link(rel='stylesheet' href='styles/main.css')
+  script(src="https://polyfill.io/v3/polyfill.min.js?features=es6")
+  script(type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js")
   script(src="/socket.io/socket.io.js")
 body
   include ../partials/header
-  main
-    .coffeeSleeveContainer
-      .coffeeSleeve
-        .fileUploadWrapper
-          label(for='uploadTex') Upload your LaTeX file: 
-          input#uploadTex(type='file' accept='.tex')
-      br
-      button#generateButton Generate!
-script(src='../client.js')
+script(src="room.js")

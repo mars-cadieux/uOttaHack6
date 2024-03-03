@@ -66,3 +66,4 @@ registerButton.addEventListener('click', function() {
 	req.setRequestHeader("Content-Type", "application/json");
 	req.send(JSON.stringify(formData));
 });
+

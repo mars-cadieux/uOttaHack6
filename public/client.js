@@ -106,3 +106,18 @@ function toggleDarkMode(){
     }
 }
 
+let playOnlineButton = document.getElementById("playOnline");
+
+playOnlineButton.addEventListener('click', function() {
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if(this.readyState == 4 && this.status == 200){
+			let response = this.responseText;
+			window.location.href = `/room/${response}`;
+		}
+	}
+
+	xhttp.open("GET", '/room');
+	xhttp.setRequestHeader("Content-Type", "application/json");
+	xhttp.send();
+});
