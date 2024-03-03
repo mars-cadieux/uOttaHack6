@@ -12,6 +12,14 @@
 
 There are a few restrictions on how the LaTeX file must be formatted:
 
-The flashcards are generated from `\\definition{Text1}{Text2}` commands where *Text1* is the term being defined and *Text2* is the definition
+The flashcards are generated from `\definition{Text1}{Text2}` commands where *Text1* is the term being defined and *Text2* is the definition
 
-You can add `\\code{some text}` where *some text* will be formatted in monospace font with a different colour
+You can add `\code{some text}` where *some text* will be formatted in monospace font with a different colour
+
+Add the following commands to the top of your .tex file in order to be able to use the \definition and \code custom commands (these commands also provide nice formatting for your LaTeX notes):
+
+%new command for writing a definition, will have bold font and will insert a colon after the definition
+\newcommand{\definition}[2]{\textbf{#1}: #2}
+
+%custom underline shortcut
+\newcommand{\ul}[1]{\underline{\smash{#1}}}
