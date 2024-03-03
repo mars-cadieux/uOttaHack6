@@ -13,7 +13,7 @@ let courseSchema = Schema({
 
     section: {
         type: String, 
-		required: true,
+		required: false,
 		minlength: 1,
 		maxlength: 1,
 		match: /[a-z]/i,
@@ -22,7 +22,7 @@ let courseSchema = Schema({
     
     term: {
         type: String, 
-		required: true,
+		required: false,
 		minlength: 6,
 		maxlength: 6,
 		match: /[fsw] [0-9]{4}/i,

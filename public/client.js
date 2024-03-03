@@ -20,6 +20,9 @@ function generateFlashcards() {
 	let parsedFile = parseDefinitionToObject(currentFileContent);
 	console.log(parsedFile);
 
+    let dropdown = document.getElementById("courseSelector");
+    parsedFile.courseCode = dropdown.value;
+
 	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if(this.readyState == 4 ){
@@ -30,7 +33,8 @@ function generateFlashcards() {
 
 	xhttp.open("POST", '/upload');
 	xhttp.setRequestHeader("Content-Type", "application/json");
-	xhttp.send(JSON.stringify(parsedFile));
+	xhttp.send(JSON.stringify(parsedFile))
+
 }
 
 function parseDefinitionToArray(str) {

@@ -7,7 +7,7 @@ loginButton.addEventListener('click', function() {
 	req.onreadystatechange = function() {
 		if(this.readyState==4){
 			let responseObj = (this.responseText).toString();
-			if(this.status==200){
+			if(this.status==201){
 				window.location.href = " http://localhost:3000/upload";
 			}
 			//unauthorized access due to incorrect password, the validation is handled by the server
